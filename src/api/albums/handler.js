@@ -103,7 +103,7 @@ class AlbumsHandler {
             return {
                 statusCode: 200,
                 status: 'success',
-                message: 'testnya gak konsisten antara postman dan instruksi. good joob. :))))',
+                message: 'Success',
                 data: {
                     album
                 }
