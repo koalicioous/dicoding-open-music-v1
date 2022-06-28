@@ -14,7 +14,7 @@ class SongsHandler {
 
     async getSongsHandler(request,h) {
         try {
-            const songs = await this._service.getSongs()
+            const songs = await this._service.getSongs({...request.query});
             return {
                 status: 'success',
                 statusCode: 200,
@@ -29,6 +29,7 @@ class SongsHandler {
                     status: 'fail',
                     message: error.message,
                 })
+                console.log(error)
                 response.code(error.statusCode)
                 return response
             }
@@ -36,6 +37,7 @@ class SongsHandler {
                 status: 'fail',
                 message: 'Internal Server Error',
             })
+            console.log(error)
             response.code(500)
             return response
         }
@@ -44,7 +46,7 @@ class SongsHandler {
     async getSongHandler(request,h){
         try {
             const { id } = request.params;
-            const song = await this._service.getSong(id, {...request.query});
+            const song = await this._service.getSong(id);
             return {
                 status: 'success',
                 statusCode: 200,

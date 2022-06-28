@@ -30,8 +30,11 @@ class SongService {
         }
     }
 
-    async getSongs(){
-        const query = 'SELECT * FROM songs'
+    async getSongs({
+        title = '',
+        performer = ''
+    }){
+        const query = `SELECT * FROM songs ${ title || performer ? 'WHERE' : ''} ${title ? `lower(title) LIKE ${`'%${title.toLowerCase()}%'`}` : ''} ${title && performer ? 'AND' : ''} ${performer ? `lower(performer) LIKE ${`'%${performer.toLowerCase()}%'`}` : ''}`
         const result = await this._pool.query(query)
         return result.rows.map(row => {
             return {
@@ -42,12 +45,9 @@ class SongService {
         })
     }
 
-    async getSong(id, {
-        title = '',
-        performer = ''
-    }){
+    async getSong(id){
         const query = {
-            text: `SELECT * FROM songs WHERE id = $1 AND title LIKE '%${title}%' AND performer LIKE '%${performer}'`,
+            text: `SELECT * FROM songs WHERE id = $1`,
             values: [id],
         }
         const result = await this._pool.query(query)

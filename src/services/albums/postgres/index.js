@@ -36,6 +36,12 @@ class AlbumService {
             values: [id],
         }
         const result = await this._pool.query(query);
+        const songQuery ={
+            text: `SELECT * FROM songs WHERE albumid = $1`,
+            values: [id],
+        }
+        const songResult = await this._pool.query(songQuery);
+
         if(result.rowCount === 0){
             throw new NotFoundError('Album tidak ditemukan')
         }
@@ -46,6 +52,13 @@ class AlbumService {
                 id,
                 name,
                 year,
+                ...(songResult.rowCount > 0 && { songs: songResult.rows.map((row) => {
+                    return {
+                        id: row.id,
+                        title: row.title,
+                        performer: row.performer
+                    }
+                }) })
             }
         }
         )[0];
