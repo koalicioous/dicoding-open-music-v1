@@ -1,0 +1,24 @@
+{
+  "name": "open-music-submission",
+  "version": "1.0.0",
+  "description": "Submission for dicoding class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon ./src/server.js",
+    "migrate": "node-pg-migrate"
+  },
+  "author": "Muhammad Ulil Albab Surya Negara",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2",
+    "dotenv": "^16.0.1",
+    "joi": "^17.6.0",
+    "nanoid": "^3.1.20",
+    "node-pg-migrate": "^6.2.1",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
